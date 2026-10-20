@@ -1,0 +1,40 @@
+```html
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Password Generator</title>
+</head>
+<body>
+
+    <h2>Password Generator</h2>
+
+    <label>Enter password length:</label>
+    <input type="number" id="length">
+
+    <button onclick="generatePassword()">Generate</button>
+
+    <p id="result"></p>
+
+    <script>
+        function generatePassword() {
+
+            let length = document.getElementById("length").value;
+
+            let characters =
+                "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+
+            let password = "";
+
+            for (let i = 0; i < length; i++) {
+                let randomIndex = Math.floor(Math.random() * characters.length);
+                password += characters[randomIndex];
+            }
+
+            document.getElementById("result").textContent =
+                "Your Password: " + password;
+        }
+    </script>
+
+</body>
+</html>
+```
