@@ -1,0 +1,39 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Random Decision Maker</title>
+</head>
+<body>
+
+    <h1>Random Decision Maker</h1>
+
+    <input type="text" id="question" placeholder="Enter your question">
+
+    <button id="decide">Decide for Me</button>
+
+    <h2 id="result"></h2>
+
+    <script>
+        let answers = ["Yes", "No", "Maybe", "Try Again"];
+
+        document.getElementById("decide").addEventListener("click", function() {
+
+            let question = document.getElementById("question").value;
+
+            if (question === "") {
+                document.getElementById("result").innerText =
+                    "Please enter a question!";
+            }
+            else {
+                let randomIndex = Math.floor(Math.random() * answers.length);
+
+                document.getElementById("result").innerText =
+                    answers[randomIndex];
+            }
+
+        });
+    </script>
+
+</body>
+</html>

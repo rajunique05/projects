@@ -1,0 +1,86 @@
+
+const readline = require("readline");
+
+const rl = readline.createInterface({
+    input: process.stdin,
+    output: process.stdout
+});
+
+let expenses = [];
+
+function showMenu() {
+    console.log("\n===== EXPENSE TRACKER =====");
+    console.log("1. Add Expense");
+    console.log("2. View Expenses");
+    console.log("3. Show Total Spending");
+    console.log("4. Exit");
+
+    rl.question("Choose an option: ", function (choice) {
+        if (choice === "1") {
+            addExpense();
+        } else if (choice === "2") {
+            viewExpenses();
+        } else if (choice === "3") {
+            showTotal();
+        } else if (choice === "4") {
+            console.log("Thank you for using Expense Tracker!");
+            rl.close();
+        } else {
+            console.log("Invalid choice. Try again.");
+            showMenu();
+        }
+    });
+}
+
+function addExpense() {
+    rl.question("Enter expense name: ", function (name) {
+        rl.question("Enter amount (Rs.): ", function (amount) {
+            let price = Number(amount);
+
+            if (name.trim() === "" || !Number.isFinite(price) || price <= 0) {
+                console.log("Please enter a valid name and amount.");
+                showMenu();
+                return;
+            }
+
+            expenses.push({
+                name: name,
+                amount: price
+            });
+
+            console.log("Expense added successfully!");
+            showMenu();
+        });
+    });
+}
+
+function viewExpenses() {
+    if (expenses.length === 0) {
+        console.log("No expenses added yet.");
+    } else {
+        console.log("\n----- YOUR EXPENSES -----");
+
+        expenses.forEach(function (expense, index) {
+            console.log(
+                (index + 1) + ". " +
+                expense.name + " - Rs. " +
+                expense.amount.toFixed(2)
+            );
+        });
+    }
+
+    showMenu();
+}
+
+function showTotal() {
+    let total = 0;
+
+    expenses.forEach(function (expense) {
+        total += expense.amount;
+    });
+
+    console.log("Total Spending: Rs. " + total.toFixed(2));
+    showMenu();
+}
+
+showMenu();

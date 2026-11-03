@@ -2,5 +2,5 @@
  var btn=document.querySelector('button')
  btn.addEventListener('click',function()
 {
-h1.innerHTML='i am batman' 
+     console.log("kya mila click krke kuch dhng ka bna le");
 })

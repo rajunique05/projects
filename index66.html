@@ -1,0 +1,93 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Typing Speed Test</title>
+</head>
+<body>
+
+    <h1>Typing Speed Test</h1>
+
+    <h3 id="sentence">
+        The quick brown fox jumps over the lazy dog.
+    </h3>
+
+    <textarea id="input" rows="5" cols="50"
+        placeholder="Start typing here..."
+        oninput="checkTyping()"></textarea>
+
+    <br><br>
+
+    <button onclick="startTest()">Start Test</button>
+
+    <h3 id="time">Time: 0 seconds</h3>
+    <h3 id="speed">Speed: 0 WPM</h3>
+    <h3 id="accuracy">Accuracy: 0%</h3>
+    <h3 id="result"></h3>
+
+    <script>
+
+        let startTime;
+        let timerStarted = false;
+
+        function startTest() {
+
+            document.getElementById("input").value = "";
+
+            document.getElementById("time").innerText = "Time: 0 seconds";
+            document.getElementById("speed").innerText = "Speed: 0 WPM";
+            document.getElementById("accuracy").innerText = "Accuracy: 0%";
+            document.getElementById("result").innerText = "";
+
+            startTime = new Date();
+
+            timerStarted = true;
+
+            document.getElementById("input").disabled = false;
+            document.getElementById("input").focus();
+        }
+
+        function checkTyping() {
+
+            if (!timerStarted) {
+                return;
+            }
+
+            let typedText = document.getElementById("input").value;
+
+            let originalText = document.getElementById("sentence").innerText.trim();
+
+            if (typedText === originalText) {
+
+                let endTime = new Date();
+
+                let timeTaken = (endTime - startTime) / 1000;
+
+                let words = typedText.split(" ").length;
+
+                let speed = Math.round(words / (timeTaken / 60));
+
+                let accuracy = 100;
+
+                document.getElementById("time").innerText =
+                    "Time: " + timeTaken.toFixed(2) + " seconds";
+
+                document.getElementById("speed").innerText =
+                    "Speed: " + speed + " WPM";
+
+                document.getElementById("accuracy").innerText =
+                    "Accuracy: " + accuracy + "%";
+
+                document.getElementById("result").innerText =
+                    "Congratulations! Test Completed.";
+
+                timerStarted = false;
+
+                document.getElementById("input").disabled = true;
+            }
+        }
+
+    </script>
+
+</body>
+</html>
